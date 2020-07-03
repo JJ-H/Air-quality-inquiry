@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://unpkg.com/animate.css@3.5.2/animate.min.css">
+    <title>{{ city }}空气污染物可视化图表</title>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+    <style>
+        h1 {
+            font-size: 60px;
+            text-align: center;
+            color: #55b2bb;
+            margin-top: 0px;
+        }
+        body {
+            background-color: #000;
+            margin: 0;
+            padding: 0;
+            padding-top: 50px;
+        }
+        .wapper {
+            border-radius: 10px;
+            width: 710px;
+            background-color: white;
+            margin: 0 auto;
+        }
+        #chart1,#chart2 {
+            width:710px;
+            height:300px;
+            margin: 0 auto;
+            margin-bottom: 30px;
+          }
+        .advice {
+            text-align: center;
+        }
+        .advice span {
+            margin: 0 5px;
+            color: darkgreen;
+        }
+        .module-aqitable {
+            margin: 0 auto;
+            background-color: white;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            padding-bottom: 15px;
+            width: 700px;
+            font-size: 14px;
+        }
+
+        .module-aqitable .btitle {
+            padding-bottom: 16px;
+        }
+
+        .module .btitle {
+            position: relative;
+            text-align: left;
+            padding-left: 12px;
+            overflow: hidden;
+            zoom: 1;
+        }
+
+        .btitle {
+            height: 24px;
+            line-height: 24px;
+            padding-top: 16px;
+            padding-bottom: 10px;
+        }
+        .btitle h2 {
+            text-align: center;
+        }
+        .module-aqitable .meta table {
+            width: 100%;
+            height: 395px;
+            background-color: #f8fbff;
+            border: 2px solid white;
+            border-collapse: collapse;
+            border-spacing: 0;
+            table-layout: fixed;
+            margin-left: -1px;
+            color: #666666;
+        }
+     </style>
+</head>
+<body>
+    <div class="wapper ">
+        <h1>数据报表</h1>
+        <div id="chart1" class="chart-container animated rollIn"></div>
+        <h5 class="advice">温馨建议</h5>
+        <p class="advice">
+            {% for each in  advice  %}
+                <span>{{ each }}</span>
+            {% endfor %}
+        </p>
+        <div id="chart2" class="chart-container animated flipInX"></div>
+        <div class="module module-aqitable">
+        <div class="btitle">
+            <h2>空气质量指数（AQI）标准对应表</h2>
+        </div>
+        <div class="meta">
+            <table cellspacing="0">
+                <tbody>
+                    <tr>
+                        <th class="th-1st" width="94">空气质量指数</th>
+                        <th class="th-2nd" width="100">空气质量状况</th>
+                        <th class="th-3rd" width="248">对健康影响情况</th>
+                        <th class="th-4th" width="250">建议采取的措施</th>
+                    </tr>
+                    <tr>
+                        <td class="td-1st">0-50</td>
+                        <td class="td-2nd"><em class="aqi-icon aqi-icon-lv1"></em>优</td>
+                        <td class="td-3rd">空气质量令人满意，基本无空气污染，对健康没有危害。</td>
+                        <td class="td-4th">各类人群可多参加户外活动，多呼吸一下清新的空气。</td>
+                    </tr>
+                    <tr>
+                        <td class="td-1st">51-100</td>
+                        <td class="td-2nd"><em class="aqi-icon aqi-icon-lv2"></em>良好</td>
+                        <td class="td-3rd">除少数对某些污染物特别敏感的人群外，不会对人体健康产生危害。</td>
+                        <td class="td-4th">除少数对某些污染物特别容易过敏的人群外，其他人群可以正常进行室外活动。</td>
+                    </tr>
+                    <tr>
+                        <td class="td-1st">101-150</td>
+                        <td class="td-2nd"><em class="aqi-icon aqi-icon-lv3"></em>轻度污染</td>
+                        <td class="td-3rd">敏感人群症状会有轻度加剧，对健康人群没有明显影响。</td>
+                        <td class="td-4th">儿童、老年人及心脏病、呼吸系统疾病患者应尽量减少体力消耗大的户外活动。</td>
+                    </tr>
+                    <tr>
+                        <td class="td-1st">151-200</td>
+                        <td class="td-2nd"><em class="aqi-icon aqi-icon-lv4"></em>中度污染</td>
+                        <td class="td-3rd">敏感人群症状进一步加剧，可能对健康人群的心脏、呼吸系统有影响。</td>
+                        <td class="td-4th">儿童、老年人及心脏病、呼吸系统疾病患者应尽量减少外出，停留在室内，一般人群应适量减少户外运动。</td>
+                    </tr>
+                    <tr>
+                        <td class="td-1st">201-300</td>
+                        <td class="td-2nd"><em class="aqi-icon aqi-icon-lv5"></em>重度污染</td>
+                        <td class="td-3rd">空气状况很差，会对每个人的健康都产生比较严重的危害。</td>
+                        <td class="td-4th">儿童、老年人及心脏病、肺病患者应停留在室内，停止户外运动，一般人群尽量减少户外运动。</td>
+                    </tr>
+                    <tr>
+                        <td class="td-1st">&gt;300</td>
+                        <td class="td-2nd"><em class="aqi-icon aqi-icon-lv6"></em>严重污染</td>
+                        <td class="td-3rd">空气状况极差，所有人的健康都会受到严重危害。</td>
+                        <td class="td-4th">儿童、老年人和病人应停留在室内，避免体力消耗，除有特殊需要的人群外，一般人群尽量不要停留在室外。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+    <script type="text/javascript">
+        //获取污染物数据
+        var data = {{ data|safe }};
+        //获取当前日期
+        var time = data.time;
+        var date = data.time+"时";
+        var city = data.city;
+        // 获取柱状图的纵坐标值
+        var datalist = data.datalist;
+        var myChart1 = echarts.init(document.getElementById('chart1'));
+        var option = {
+            "animation": true,
+            "animationThreshold": 2000,
+            "animationDuration": 1000,
+            "animationEasing": "cubicOut",
+            "animationDelay": 0,
+            "animationDurationUpdate": 300,
+            "animationEasingUpdate": "cubicOut",
+            "animationDelayUpdate": 0,
+            "color": [
+                "#c23531",
+                "#2f4554",
+                "#61a0a8",
+                "#d48265",
+                "#749f83",
+                "#ca8622",
+                "#bda29a",
+                "#6e7074",
+                "#546570",
+                "#c4ccd3",
+                "#f05b72",
+                "#ef5b9c",
+                "#f47920",
+                "#905a3d",
+                "#fab27b",
+                "#2a5caa",
+                "#444693",
+                "#726930",
+                "#b2d235",
+                "#6d8346",
+                "#ac6767",
+                "#1d953f",
+                "#6950a1",
+                "#918597"
+            ],
+            "series": [
+                {
+                    "type": "pie",
+                    "clockwise": true,
+                    "data": data.aqi_data,
+                    "radius": [
+                        "40%",
+                        "75%"
+                    ],
+                    "center": [
+                        "50%",
+                        "50%"
+                    ],
+                    "label": {
+                        "show": true,
+                        "position": "top",
+                        "margin": 8,
+                        "formatter": "{b}: {c}μg/m³"
+                    },
+                    "rippleEffect": {
+                        "show": true,
+                        "brushType": "stroke",
+                        "scale": 2.5,
+                        "period": 4
+                    }
+                }
+            ],
+            "legend": [
+                {
+                    "data": ['PM2.5','PM10', 'SO2','NO2','O3'],
+                    "selected": {},
+                    "show": true,
+                    "left": "2%",
+                    "top": "15%",
+                    "orient": "vertical",
+                    "padding": 5,
+                    "itemGap": 10,
+                    "itemWidth": 25,
+                    "itemHeight": 14
+                }
+            ],
+            "tooltip": {
+                "show": true,
+                "trigger": "item",
+                "triggerOn": "mousemove|click",
+                "axisPointer": {
+                    "type": "line"
+                },
+                "textStyle": {
+                    "fontSize": 14
+                },
+                "borderWidth": 0
+            },
+            "title": [
+                {
+                    "text": time+" "+city+"各污染物占比示意图",
+                    "padding": 5,
+                    "itemGap": 10
+                }
+            ]
+        };
+
+        myChart1.setOption(option);
+
+    var myChart2 = echarts.init(document.getElementById("chart2"));
+    //获取当前日期
+    var myDate = new Date();
+    var today = myDate.getDate();
+    var month = myDate.getMonth();
+    var year = myDate.getFullYear();
+    var is_run = false;
+    var a = year % 4;
+    var b = year % 100;
+    var c = year % 400;
+    if( ( (a == 0) && (b != 0) ) || (c == 0) ){
+        is_run = true;
+    }
+    var days= [31,29,31,30,31,30,31,31,30,31,30,31];
+    if(year && month==1)
+        days[1]=28;
+    else
+        days[1]=29;
+    var day = myDate.getDate();
+    var datearr = [day+'日'];
+    for (var i = 1; i <15 ; i++) {
+        day = day+1;
+        if(day > days[month]){
+            month++;
+            day=1;
+            day %= days[month];
+        }
+
+
+        datearr.push(day+'日')
+    }
+    console.log(datearr)
+    var aqilist = data.aqi;
+    // 指定图表的配置项和数据
+    var option = {
+        // 标题
+        title: {
+            text: '未来15日空气质量指数',
+            subtext:'地区:'+city,
+            left:'left',
+        },
+        // 工具箱
+        toolbox: {
+            show: true,
+            feature:{
+                saveAsImage:{
+                    show:true
+                },
+                restore:{
+                    show:true
+                },
+                dataView:{
+                    show:true
+                },
+                dataZoom:{
+                    show:true
+                },
+                magicType:{
+                    type:['line','bar']
+                }
+
+            }
+        },
+        tooltip:{
+            trigger:'axis',
+        },
+        // 图例
+        legend: {
+            data: ['空气质量指数']
+        },
+        // x轴
+        xAxis: {
+            data: datearr
+        },
+        yAxis: {},
+        // 数据
+        series: [{
+            name: '空气质量指数',
+            type: 'bar',
+            data: aqilist,
+            {#markPoint:{#}
+            {#    data:[#}
+            {#        {type:'max',name:'最大值'},#}
+            {#        {type:'min',name:'最小值',symbol:'arrow'}#}
+            {#    ]#}
+            {# },#}
+            {#markLine:{#}
+            {#    data:[#}
+            {#        {type: 'average',name:'平均值'}#}
+            {#    ]#}
+            {# }#}
+        }
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart2.setOption(option);
+    </script>
+</body>
+</html>

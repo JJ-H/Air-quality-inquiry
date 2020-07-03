@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> 污染物含量查询</title>
+    <style>
+        h3{
+            margin-top: 80px;
+            text-align: center;
+            color: rgb(18, 94, 124);
+            font-size: 70px;
+        }
+        form{
+                margin-top:60px;
+                text-align: center;
+            }
+            #container{
+
+                width:642px;
+                height: 46px;
+                border: 1px solid #bbbbbb;
+                margin: 0 auto;
+                box-sizing: border-box;
+            }
+            #text{
+                width: 540px;
+                height: 44px;
+                border: 0px;
+                padding-left: 10px;
+                padding-right: 10px;
+                box-sizing: border-box;
+                font-size: 18px;
+                font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+                outline: none;
+            }
+            #button{
+                width: 100px;
+                height: 44px;
+                border: 0px;
+                background-color: rgb(18, 94, 124);
+                color: white;
+                font-size: 18px;
+                outline: none;
+            }
+            block{
+                float: left;
+            }
+    </style>
+</head>
+<body>
+    <h3>空气污染物实时查询</h3>
+    <form action="/search" target="_blank">
+        <div id="container">
+            <block><input id="text" type="text" name="city" autocomplete="off"></block>
+            <block><input id="button" type="submit" value="搜索"></block>
+        </div>
+    </form>
+</body>
+</html>
